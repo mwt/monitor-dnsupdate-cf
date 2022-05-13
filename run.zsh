@@ -55,3 +55,8 @@ if [[ $SERVER_A_CONNECT == 0 ]] {
     date_time_echo "Connection failed with error ${SERVER_A_CONNECT}. Expected error 7, 28, or success."
     exit 1
 }
+
+date_time_echo "Unhandled case: presumably, both A and B are down.
+SERVER_A_CONNECT:   $SERVER_A_CONNECT
+CURRENT_HOST:       $CURRENT_HOST
+----------------------------------------"
