@@ -1,3 +1,6 @@
+NEWLINE="
+"
+
 date_time_echo() {
     local DATE_BRACKET=$(date +"[%D %T]")
     echo "$DATE_BRACKET" "$@"
@@ -10,7 +13,7 @@ cloudflare_dns_query() {
 
     curl -sX GET "https://api.cloudflare.com/client/v4/zones/$ZONE_ID/dns_records/$DNS_ID" \
          -H "Authorization: Bearer $TOKEN" \
-         -H "Content-Type: application/json" \
+         -H "Content-Type: application/json"
 }
 
 cloudflare_dns_update() {
@@ -25,8 +28,16 @@ cloudflare_dns_update() {
     local PROXIED=${7:-'false'}
     local TTL=${8:-'1'}
 
-    curl -sX PUT "https://api.cloudflare.com/client/v4/zones/$ZONE_ID/dns_records/$DNS_ID" \
+    local RESPONSE=$(curl -sX PUT "https://api.cloudflare.com/client/v4/zones/$ZONE_ID/dns_records/$DNS_ID" \
          -H "Authorization: Bearer $TOKEN" \
          -H "Content-Type: application/json" \
-         --data '{"type":"'"$TYPE"'","name":"'"$NAME"'","content":"'"$CONTENT"'","proxied":'"$PROXIED"',"ttl":'"$TTL"'}'
+         --data '{"type":"'"$TYPE"'","name":"'"$NAME"'","content":"'"$CONTENT"'","proxied":'"$PROXIED"',"ttl":'"$TTL"'}')
+
+    local RSUCCESS=$(echo $RESPONSE | jq -r '.result.success')
+
+    if [[ $RSUCCESS == 'true' ]] {
+        date_time_echo "Success!${NEWLINE}"
+    } else {
+        date_time_echo "${RESPONSE}${NEWLINE}"
+    }
 }

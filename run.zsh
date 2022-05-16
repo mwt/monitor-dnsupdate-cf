@@ -29,7 +29,7 @@ if [[ $SERVER_A_CONNECT == 0 ]] {
         exit 0
     } else {
         # CNAME is weird; do nothing
-        date_time_echo "The connection to the server was successful, but the current CNAME is ${CURRENT_HOST}. Expected ${SERVER_A} or ${SERVER_B}."
+        date_time_echo "The connection to the server was successful, but the current CNAME is ${CURRENT_HOST}. Expected ${SERVER_A} or ${SERVER_B}.${NEWLINE}"
         exit 1
     }
 } elif [[ $SERVER_A_CONNECT == 7 || $SERVER_A_CONNECT == 28 ]] {
@@ -47,12 +47,12 @@ if [[ $SERVER_A_CONNECT == 0 ]] {
         exit 0
     } else {
         # CNAME is weird; do nothing
-        date_time_echo "The connection to the server failed, but the current CNAME is ${CURRENT_HOST}. Expected ${SERVER_A} or ${SERVER_B}."
+        date_time_echo "The connection to the server failed, but the current CNAME is ${CURRENT_HOST}. Expected ${SERVER_A} or ${SERVER_B}.${NEWLINE}"
         exit 1
     }
 } else {
     # curl failed in an unexpected way; do nothing
-    date_time_echo "Connection failed with error ${SERVER_A_CONNECT}. Expected error 7, 28, or success."
+    date_time_echo "Connection failed with error ${SERVER_A_CONNECT}. Expected error 7, 28, or success.${NEWLINE}"
     exit 1
 }
 
