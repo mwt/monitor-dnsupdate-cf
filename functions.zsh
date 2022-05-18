@@ -33,7 +33,7 @@ cloudflare_dns_update() {
          -H "Content-Type: application/json" \
          --data '{"type":"'"$TYPE"'","name":"'"$NAME"'","content":"'"$CONTENT"'","proxied":'"$PROXIED"',"ttl":'"$TTL"'}')
 
-    local RSUCCESS=$(echo $RESPONSE | jq -r '.result.success')
+    local RSUCCESS=$(echo $RESPONSE | jq -r '.success')
 
     if [[ $RSUCCESS == 'true' ]] {
         date_time_echo "Success!${NEWLINE}"
