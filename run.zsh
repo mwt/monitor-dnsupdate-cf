@@ -29,10 +29,12 @@ if [[ $SERVER_A_CONNECT == 0 ]] {
         # A is up, but the current CNAME is B
         date_time_echo "${SERVER_A} is back up! Rotating DNS to ${SERVER_A}."
         cloudflare_dns_update "$DOMAIN_MAIN" "$SERVER_A" "$ZONE_ID" "$DNS_ID" "$TOKEN"
+        echo ""
         exit 0
     } else {
         # CNAME is weird; do nothing
-        date_time_echo "The connection to the server was successful, but the current CNAME is ${CURRENT_HOST}. Expected ${SERVER_A} or ${SERVER_B}.${NEWLINE}"
+        date_time_echo "The connection to the server was successful, but the current CNAME is ${CURRENT_HOST}. Expected ${SERVER_A} or ${SERVER_B}."
+        echo ""
         exit 1
     }
 } elif [[ $SERVER_A_CONNECT == 7 || $SERVER_A_CONNECT == 28 ]] {
@@ -50,12 +52,14 @@ if [[ $SERVER_A_CONNECT == 0 ]] {
         exit 0
     } else {
         # CNAME is weird; do nothing
-        date_time_echo "The connection to the server failed, but the current CNAME is ${CURRENT_HOST}. Expected ${SERVER_A} or ${SERVER_B}.${NEWLINE}"
+        date_time_echo "The connection to the server failed, but the current CNAME is ${CURRENT_HOST}. Expected ${SERVER_A} or ${SERVER_B}."
+        echo ""
         exit 1
     }
 } else {
     # curl failed in an unexpected way; do nothing
-    date_time_echo "Connection failed with error ${SERVER_A_CONNECT}. Expected error 7, 28, or success.${NEWLINE}"
+    date_time_echo "Connection failed with error ${SERVER_A_CONNECT}. Expected error 7, 28, or success."
+    echo ""
     exit 1
 }
 
