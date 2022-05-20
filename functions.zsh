@@ -1,6 +1,3 @@
-NEWLINE="
-"
-
 date_time_echo() {
     local DATE_BRACKET=$(date +"[%D %T]")
     echo "$DATE_BRACKET" "$@"
@@ -36,8 +33,8 @@ cloudflare_dns_update() {
     local RSUCCESS=$(echo $RESPONSE | jq -r '.success')
 
     if [[ $RSUCCESS == 'true' ]] {
-        date_time_echo "Success!${NEWLINE}"
+        date_time_echo "Success!"
     } else {
-        date_time_echo "${RESPONSE}${NEWLINE}"
+        date_time_echo "${RESPONSE}"
     }
 }
